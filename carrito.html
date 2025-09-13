@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito - GameZone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <nav>
+    <a href="index.html" class="logo">GameZone</a>
+    <ul class="nav-links">
+      <li><a href="index.html#inicio">Inicio</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="carrito.html">Carrito</a></li>
+    </ul>
+    <div class="cart-btn" id="user-pill">Cargando…</div>
+  </nav>
+</header>
+
+<section class="products-section">
+  <div class="container">
+    <h2 class="section-title">Tu carrito</h2>
+
+    <div class="product-card" style="padding:1rem">
+      <div id="items"></div>
+      <div class="cart-total"><strong>Total: <span id="total">$0</span></strong></div>
+      <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:1rem">
+        <button class="btn-secondary" id="clear">Vaciar</button>
+        <button class="btn-primary" id="checkout">Pagar</button>
+      </div>
+      <div id="msg" style="margin-top:1rem;color:#39FF14"></div>
+    </div>
+  </div>
+</section>
+
+<script src="auth.js"></script>
+<script>
+  // Verificar que auth.js esté cargado
+  if (!window.GZAuth) {
+    console.error('auth.js no cargó o ruta incorrecta.');
+    document.getElementById('user-pill').innerHTML =
+      '<a href="login.html" style="color:#fff">Inicia sesión</a>';
+  }
+
+  const pill = document.getElementById('user-pill');
+  const u = window.GZAuth ? window.GZAuth.currentUser() : null;
+
+  pill.innerHTML = u
+    ? ((u.email.endsWith('@duocuc.cl') ? 'DUOC 20% ' : '') + u.nombre +
+       ' | <a href="#" id="logout" style="color:#fff">Salir</a>')
+    : '<a href="login.html" style="color:#fff">Inicia sesión</a>';
+
+  if (document.getElementById('logout')) {
+    document.getElementById('logout').onclick = (e)=>{
+      e.preventDefault();
+      window.GZAuth.logout();
+      location.reload();
+    };
+  }
+
+  const itemsDiv = document.getElementById('items');
+  const totalEl = document.getElementById('total');
+  const msg = document.getElementById('msg');
+
+  function draw(){
+    const cart = JSON.parse(localStorage.getItem('gz_cart')||'[]');
+    itemsDiv.innerHTML = '';
+    if(cart.length===0){
+      itemsDiv.innerHTML = '<p class="product-description">No hay productos en el carrito.</p>';
+    }else{
+      cart.forEach((it,idx)=>{
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML = `
+          <div class="cart-item-info">
+            <h4>${it.name}</h4>
+            <p>Precio: ${new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(it.price)}</p>
+          </div>
+          <div class="cart-item-controls">
+            <div class="quantity-controls">
+              <button class="quantity-btn" data-d="-1">-</button>
+              <span>${it.qty}</span>
+              <button class="quantity-btn" data-d="1">+</button>
+            </div>
+            <button class="remove-btn">Eliminar</button>
+          </div>`;
+        row.querySelector('[data-d="-1"]').onclick = ()=>{ updateQty(idx, -1); };
+        row.querySelector('[data-d="1"]').onclick = ()=>{ updateQty(idx, 1); };
+        row.querySelector('.remove-btn').onclick = ()=>{ removeIdx(idx); };
+        itemsDiv.appendChild(row);
+      });
+    }
+    totalEl.textContent = new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(cart.reduce((a,i)=>a+i.price*i.qty,0));
+  }
+
+  function updateQty(i, d){
+    const cart = JSON.parse(localStorage.getItem('gz_cart')||'[]');
+    cart[i].qty += d;
+    if(cart[i].qty<=0) cart.splice(i,1);
+    localStorage.setItem('gz_cart', JSON.stringify(cart));
+    draw();
+  }
+
+  function removeIdx(i){
+    const cart = JSON.parse(localStorage.getItem('gz_cart')||'[]');
+    cart.splice(i,1);
+    localStorage.setItem('gz_cart', JSON.stringify(cart));
+    draw();
+  }
+
+  document.getElementById('clear').onclick = ()=>{
+    localStorage.removeItem('gz_cart');
+    draw();
+  };
+
+  document.getElementById('checkout').onclick = ()=>{
+    if(!window.GZAuth || !window.GZAuth.currentUser()){
+      msg.style.color = '#ff6b6b';
+      msg.textContent = 'Inicia sesión para pagar.';
+      return;
+    }
+    msg.style.color = '#39FF14';
+    msg.textContent = 'Pago simulado completado. ¡Gracias por tu compra!';
+    localStorage.removeItem('gz_cart');
+    draw();
+  };
+
+  draw();
+</script>
+</body>
+</html>
