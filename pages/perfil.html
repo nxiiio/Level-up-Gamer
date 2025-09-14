@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - Level-Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<header>
+  <nav>
+    <a href="../index.html" class="logo">Level-Up</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div id="auth-buttons"></div>
+  </nav>
+</header>
+
+<main class="profile-container">
+  <div class="profile-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="profile-sidebar">
+      <div class="sidebar-content">
+        <div class="sidebar-item active" data-section="personal">
+          <span class="sidebar-icon">👤</span>
+          <span class="sidebar-text">Información Personal</span>
+        </div>
+        <div class="sidebar-item" data-section="settings">
+          <span class="sidebar-icon">⚙️</span>
+          <span class="sidebar-text">Configuración</span>
+        </div>
+        <div class="sidebar-item" data-section="history">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-text">Historial de Compras</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="profile-main-content">
+      <!-- Información Personal Section -->
+      <section class="content-section active" id="personal-section">
+        <div class="section-header">
+          <h2 class="section-title">Información Personal</h2>
+          <button class="edit-btn" onclick="toggleEditMode()">
+            <span class="edit-icon">✏️</span>
+            Editar
+          </button>
+        </div>
+        
+        <div class="profile-info-grid">
+          <div class="avatar-section">
+            <div class="avatar-circle">
+              <span id="user-initials">U</span>
+            </div>
+            <button class="change-avatar-btn">
+              <span class="camera-icon">📷</span>
+              Cambiar Avatar
+            </button>
+          </div>
+          
+          <div class="info-fields">
+            <div class="field-group">
+              <label class="field-label">NOMBRE COMPLETO</label>
+              <input type="text" id="full-name" class="info-input" value="Juan Daniel Pérez" readonly>
+            </div>
+            <div class="field-group">
+              <label class="field-label">CORREO ELECTRÓNICO</label>
+              <input type="email" id="user-email" class="info-input" value="juan.perez@email.com" readonly>
+            </div>
+            <div class="field-group">
+              <label class="field-label">FECHA DE REGISTRO</label>
+              <input type="text" id="registration-date" class="info-input" value="15 de Enero, 2024" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Seguridad Section dentro de Información Personal -->
+        <div class="security-section">
+          <h3 class="security-title">Seguridad</h3>
+          <div class="security-form">
+            <div class="field-group">
+              <label class="field-label">CONTRASEÑA ACTUAL *</label>
+              <input type="password" id="current-password" class="info-input" placeholder="Ingresa tu contraseña actual">
+            </div>
+            <div class="field-group">
+              <label class="field-label">NUEVA CONTRASEÑA *</label>
+              <input type="password" id="new-password" class="info-input" placeholder="Ingresa tu nueva contraseña">
+              <div class="password-hint">Mínimo 8 caracteres, incluye mayúsculas, minúsculas y números</div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">CONFIRMAR NUEVA CONTRASEÑA *</label>
+              <input type="password" id="confirm-new-password" class="info-input" placeholder="Confirma tu nueva contraseña">
+            </div>
+            <button class="change-password-btn" onclick="changePassword()">
+              <span class="lock-icon">🔒</span>
+              Cambiar Contraseña
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Configuración Section -->
+      <section class="content-section" id="settings-section">
+        <div class="section-header">
+          <h2 class="section-title">Preferencias</h2>
+        </div>
+        
+        <div class="preferences-container">
+          <div class="preference-item">
+            <div class="preference-info">
+              <h4>Notificaciones por Email</h4>
+              <p>Recibe actualizaciones sobre tus pedidos y ofertas especiales</p>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="email-notifications" class="toggle-input" checked>
+              <label for="email-notifications" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="preference-item">
+            <div class="preference-info">
+              <h4>Ofertas y Promociones</h4>
+              <p>Mantente al día con las mejores ofertas gaming</p>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="offers-promotions" class="toggle-input" checked>
+              <label for="offers-promotions" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="preference-item">
+            <div class="preference-info">
+              <h4>Modo Oscuro</h4>
+              <p>Cambia la apariencia de la interfaz</p>
+            </div>
+            <div class="toggle-switch">
+              <input type="checkbox" id="dark-mode" class="toggle-input" checked>
+              <label for="dark-mode" class="toggle-label">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Historial de Compras Section -->
+      <section class="content-section" id="history-section">
+        <div class="section-header">
+          <h2 class="section-title">Historial de Compras</h2>
+        </div>
+        
+        <div class="purchase-history">
+          <div class="purchase-item">
+            <div class="purchase-info">
+              <h4>Mouse Gaming RGB</h4>
+              <p>Comprado el 15 de Enero, 2025</p>
+              <span class="purchase-price">$25.990</span>
+            </div>
+            <div class="purchase-status completed">Completado</div>
+          </div>
+          <div class="purchase-item">
+            <div class="purchase-info">
+              <h4>Teclado Mecánico</h4>
+              <p>Comprado el 10 de Enero, 2025</p>
+              <span class="purchase-price">$45.990</span>
+            </div>
+            <div class="purchase-status completed">Completado</div>
+          </div>
+          <div class="purchase-item">
+            <div class="purchase-info">
+              <h4>Auriculares Gaming</h4>
+              <p>Comprado el 5 de Enero, 2025</p>
+              <span class="purchase-price">$35.990</span>
+            </div>
+            <div class="purchase-status completed">Completado</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Level-Up</h4>
+        <p>Tu tienda gamer de confianza</p>
+      </div>
+      <div class="footer-section">
+        <h4>Enlaces Rápidos</h4>
+        <ul>
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contacto</h4>
+        <p>Email: info@Level-Up.com</p>
+        <p>Teléfono: +56 9 1234 5678</p>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos</h4>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Level-Up. Todos 
+    los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/profile.js"></script>
+</body>
+</html>
