@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   </div>
   <div class="product-info">
     <h2 class="product-title">${prod.name}</h2>
-    <p class="product-description">${prod.desc}</p>
+    <p class="product-description">${prod.longDescription || prod.description}</p>
     <p class="product-price">${new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(price)}</p>
     <button class="add-to-cart">Agregar al carrito</button>
   </div>`;
