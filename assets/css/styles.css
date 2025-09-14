@@ -235,6 +235,10 @@ nav {
     border-color: transparent;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(30, 144, 255, 0.3);
+
+      /* truco para quitar el borde raro */
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
 }
 
 /* Products Grid */
