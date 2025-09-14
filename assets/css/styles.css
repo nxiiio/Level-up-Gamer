@@ -669,6 +669,82 @@ footer {
     color: var(--text-secondary);
 }
 
+/* --- Eventos Page --- */
+.events-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.map-container {
+    background: var(--secondary-bg);
+    border-radius: 15px;
+    border: 1px solid var(--secondary-bg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    height: 520px;
+}
+
+.map-embed,
+.map-embed iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.events-panel {
+    background: var(--secondary-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid var(--secondary-bg);
+    height: 520px; /* igual al mapa */
+    display: flex;
+    flex-direction: column;
+}
+
+.events-list {
+    display: grid;
+    gap: 1rem;
+    overflow: auto; /* scroll interno solo en la lista */
+    padding-right: .5rem; /* margen para evitar solaparse con scroll */
+}
+
+.event-card {
+    background: var(--primary-bg);
+    border: 1px solid var(--secondary-bg);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.event-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    margin-bottom: .5rem;
+}
+
+.event-meta {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    color: var(--text-secondary);
+    font-size: .95rem;
+    margin-bottom: .5rem;
+}
+
+.event-desc {
+    color: var(--text-secondary);
+    margin-bottom: .8rem;
+}
+
+@media (max-width: 960px) {
+    .events-layout { grid-template-columns: 1fr; }
+    .map-container { height: 360px; }
+    .events-panel { height: auto; }
+    .events-list { max-height: none; overflow: visible; }
+}
+
 /* Profile Page Styles */
 .profile-container {
     min-height: 100vh;

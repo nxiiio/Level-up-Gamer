@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Eventos - Level-Up</title>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<header>
+	<nav>
+		<a href="../index.html" class="logo">Level-Up</a>
+		<ul class="nav-links">
+			<li><a href="../index.html">Inicio</a></li>
+			<li><a href="productos.html">Productos</a></li>
+			<li><a href="contacto.html">Contacto</a></li>
+			<li><a href="eventos.html">Eventos</a></li>
+		</ul>
+		<div id="auth-buttons"></div>
+	</nav>
+</header>
+
+<section class="hero" style="padding:3rem 2rem">
+	<div class="hero-content" style="max-width:980px">
+		<h1>Eventos y Torneos</h1>
+		<p>Descubre actividades gamers cerca de ti. El área roja es el mapa, la verde la lista de eventos.</p>
+	</div>
+  
+</section>
+
+<main class="products-section" style="padding-top:2rem">
+	<div class="container">
+		<div class="events-layout">
+			<div class="map-container">
+				<div class="map-embed">
+					<iframe
+						title="Mapa de eventos"
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.331715686485!2d-70.61503792414769!3d-33.43982929635932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf63f01b7a97%3A0x6f2b6df38b07cb56!2sProvidencia%2C%20Regi%C3%B3n%20Metropolitana%2C%20Chile!5e0!3m2!1ses!2scl!4v1699999999999!5m2!1ses!2scl"
+						width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</div>
+			<aside class="events-panel">
+				<h2 class="section-title" style="margin-bottom:1rem">Próximos eventos</h2>
+				<div id="events-list" class="events-list"></div>
+			</aside>
+		</div>
+	</div>
+</main>
+
+<footer>
+	<div class="container">
+		<div class="footer-content">
+			<div class="footer-section">
+				<h4>Level-Up</h4>
+				<p>Tu tienda gamer de confianza</p>
+			</div>
+			<div class="footer-section">
+				<h4>Enlaces Rápidos</h4>
+				<ul>
+					<li><a href="../index.html">Inicio</a></li>
+					<li><a href="productos.html">Productos</a></li>
+					<li><a href="contacto.html">Contacto</a></li>
+					<li><a href="eventos.html">Eventos</a></li>
+				</ul>
+			</div>
+			<div class="footer-section">
+				<h4>Contacto</h4>
+				<p>Email: info@level-up.com</p>
+				<p>Teléfono: +56 9 1234 5678</p>
+			</div>
+			<div class="footer-section">
+				<h4>Síguenos</h4>
+				<div class="social-links">
+					<a href="#">Facebook</a>
+					<a href="#">Instagram</a>
+					<a href="#">Twitter</a>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2025 Level-Up. Todos los derechos reservados.</p>
+		</div>
+	</div>
+</footer>
+
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/eventos.js"></script>
+</body>
+</html>
