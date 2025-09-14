@@ -3,27 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Productos - GameZone</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <title>Productos - Level-Up</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
   <nav>
-    <a href="index.html" class="logo">GameZone</a>
+    <a href="index.html" class="logo">Level-Up</a>
     <ul class="nav-links">
       <li><a href="index.html#inicio">Inicio</a></li>
-      <li><a href="productos.html">Productos</a></li>
-      <li><a href="carrito.html">Carrito (<span id='cart-count'>0</span>)</a></li>
+      <li><a href="index.html#productos">Productos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
     </ul>
-    <div class="cart-btn" id="user-pill">Cargando…</div>
+    <div id="auth-buttons"></div>
   </nav>
 </header>
 
 <section class="products-section">
   <div class="container">
     <h2 class="section-title">Catálogo</h2>
-
     <div class="filters" id="filters"></div>
     <div class="products-grid" id="grid"></div>
   </div>
@@ -32,7 +30,7 @@
 <footer>
   <div class="container">
     <div class="footer-bottom">
-      <p>&copy; 2025 GameZone</p>
+      <p>&copy; 2025 Level-Up. Todos los derechos reservados.</p>
     </div>
   </div>
 </footer>
@@ -40,27 +38,20 @@
 <script src="auth.js"></script>
 <script src="products.js"></script>
 <script>
-  // Render header user pill
-  const pill = document.getElementById('user-pill');
+document.addEventListener("DOMContentLoaded", ()=>{
+  const authDiv = document.getElementById('auth-buttons');
   const u = window.GZAuth.currentUser();
   if(u){
-    pill.textContent = (u.email.endsWith('@duocuc.cl') ? 'DUOC 20% ' : '') + u.nombre;
+    authDiv.innerHTML = `<button class="cart-btn" onclick="location.href='carrito.html'">🛒 Carrito</button><button class="btn-secondary" id="logout">Salir</button>`;
+    document.getElementById('logout').onclick = ()=>{ GZAuth.logout(); location.reload(); };
   }else{
-    pill.innerHTML = '<a href="login.html" style="color:#fff;text-decoration:none">Inicia sesión</a>';
+    authDiv.innerHTML = `<button class="cart-btn" onclick="location.href='login.html'">Iniciar sesión</button><button class="btn-secondary" onclick="location.href='register.html'">Registrarse</button>`;
   }
 
-  const cartCount = document.getElementById('cart-count');
-  function syncCartCount(){
-    const cart = JSON.parse(localStorage.getItem('gz_cart')||'[]');
-    cartCount.textContent = cart.reduce((a,i)=>a+i.qty,0);
-  }
-  syncCartCount();
-  window.addEventListener('storage', syncCartCount);
-
-  // Filters
-  const cats = window.GZProducts.categories();
   const filtersDiv = document.getElementById('filters');
+  const grid = document.getElementById('grid');
   let active = 'all';
+
   function drawFilters(){
     filtersDiv.innerHTML = '';
     const allBtn = document.createElement('button');
@@ -68,7 +59,7 @@
     allBtn.textContent = 'Todos';
     allBtn.onclick = ()=>{active='all'; drawFilters(); drawGrid();};
     filtersDiv.appendChild(allBtn);
-    cats.forEach(c=>{
+    GZProducts.categories().forEach(c=>{
       const b = document.createElement('button');
       b.className = 'filter-btn' + (active===c.id?' active':'');
       b.textContent = c.name;
@@ -77,34 +68,29 @@
     });
   }
 
-  // Grid
-  const grid = document.getElementById('grid');
   function priceWithDiscount(p){
-    const user = window.GZAuth.currentUser();
-    return user && user.email.endsWith('@duocuc.cl') ? Math.round(p*0.8) : p;
+    return u && u.email.endsWith('@duocuc.cl') ? Math.round(p*0.8) : p;
   }
+
   function drawGrid(){
-    const data = window.GZProducts.list().filter(p=> active==='all' || p.cat===active);
+    const data = GZProducts.list().filter(p=> active==='all' || p.cat===active);
     grid.innerHTML = '';
     data.forEach(p=>{
       const card = document.createElement('div');
       card.className = 'product-card';
-      card.innerHTML = \`
+      card.innerHTML = `
         <div class="product-image">🎮</div>
         <div class="product-info">
-          <div class="product-title">\${p.name}</div>
-          <div class="product-description">\${p.desc}</div>
-          <div class="product-price">\${new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(priceWithDiscount(p.price))}
-            \${(window.GZAuth.currentUser() && window.GZAuth.currentUser().email.endsWith('@duocuc.cl')) ? '<span style="font-size:.85rem;color:#D3D3D3"> (20% DUOC)</span>' : ''}
-          </div>
+          <div class="product-title"><a href="producto.html?code=${p.code}" style="color:#fff;text-decoration:none">${p.name}</a></div>
+          <div class="product-description">${p.desc}</div>
+          <div class="product-price">${new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(priceWithDiscount(p.price))}</div>
           <button class="add-to-cart">Agregar al carrito</button>
-        </div>\`;
+        </div>`;
       card.querySelector('.add-to-cart').onclick = ()=>{
         const cart = JSON.parse(localStorage.getItem('gz_cart')||'[]');
         const existing = cart.find(i=>i.code===p.code);
         if(existing){ existing.qty += 1; } else { cart.push({code:p.code, name:p.name, price:priceWithDiscount(p.price), qty:1}); }
         localStorage.setItem('gz_cart', JSON.stringify(cart));
-        syncCartCount();
         alert('Añadido al carrito');
       };
       grid.appendChild(card);
@@ -113,6 +99,7 @@
 
   drawFilters();
   drawGrid();
+});
 </script>
 </body>
 </html>

@@ -261,11 +261,12 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
     position: relative;
     overflow: hidden;
+    border-radius: 10px;
 }
 
+/* el overlay lo puedes mantener */
 .product-image::before {
     content: '';
     position: absolute;
@@ -273,8 +274,18 @@ nav {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at center, rgba(30, 144, 255, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(30,144,255,0.1) 0%, transparent 70%);
 }
+
+/* aquí es donde faltaba */
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* rellena sin deformar */
+    position: relative;
+    z-index: 1;          /* encima del ::before */
+}
+
 
 .product-info {
     padding: 1.5rem;

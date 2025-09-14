@@ -3,27 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carrito - GameZone</title>
+  <title>Carrito - Level-Up</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
   <nav>
-    <a href="index.html" class="logo">GameZone</a>
+    <a href="index.html" class="logo">Level-Up</a>
     <ul class="nav-links">
       <li><a href="index.html#inicio">Inicio</a></li>
-      <li><a href="productos.html">Productos</a></li>
-      <li><a href="carrito.html">Carrito</a></li>
+      <li><a href="index.html#productos">Productos</a></li>
     </ul>
-    <div class="cart-btn" id="user-pill">Cargando…</div>
+    <div id="auth-buttons"></div>
   </nav>
 </header>
 
 <section class="products-section">
   <div class="container">
     <h2 class="section-title">Tu carrito</h2>
-
     <div class="product-card" style="padding:1rem">
       <div id="items"></div>
       <div class="cart-total"><strong>Total: <span id="total">$0</span></strong></div>
@@ -38,29 +36,22 @@
 
 <script src="auth.js"></script>
 <script>
-  // Verificar que auth.js esté cargado
-  if (!window.GZAuth) {
-    console.error('auth.js no cargó o ruta incorrecta.');
-    document.getElementById('user-pill').innerHTML =
-      '<a href="login.html" style="color:#fff">Inicia sesión</a>';
+document.addEventListener("DOMContentLoaded", ()=>{
+  // Header dinámico
+  const authDiv = document.getElementById('auth-buttons');
+  const u = window.GZAuth.currentUser();
+  if(u){
+    authDiv.innerHTML = `
+      <button class="cart-btn">🛒 Carrito</button>
+      <button class="btn-secondary" id="logout">Salir</button>`;
+    document.getElementById('logout').onclick = ()=>{ GZAuth.logout(); location.href='index.html'; };
+  }else{
+    authDiv.innerHTML = `
+      <button class="cart-btn" onclick="location.href='login.html'">Iniciar sesión</button>
+      <button class="btn-secondary" onclick="location.href='register.html'">Registrarse</button>`;
   }
 
-  const pill = document.getElementById('user-pill');
-  const u = window.GZAuth ? window.GZAuth.currentUser() : null;
-
-  pill.innerHTML = u
-    ? ((u.email.endsWith('@duocuc.cl') ? 'DUOC 20% ' : '') + u.nombre +
-       ' | <a href="#" id="logout" style="color:#fff">Salir</a>')
-    : '<a href="login.html" style="color:#fff">Inicia sesión</a>';
-
-  if (document.getElementById('logout')) {
-    document.getElementById('logout').onclick = (e)=>{
-      e.preventDefault();
-      window.GZAuth.logout();
-      location.reload();
-    };
-  }
-
+  // Carrito
   const itemsDiv = document.getElementById('items');
   const totalEl = document.getElementById('total');
   const msg = document.getElementById('msg');
@@ -117,7 +108,7 @@
   };
 
   document.getElementById('checkout').onclick = ()=>{
-    if(!window.GZAuth || !window.GZAuth.currentUser()){
+    if(!u){
       msg.style.color = '#ff6b6b';
       msg.textContent = 'Inicia sesión para pagar.';
       return;
@@ -129,6 +120,7 @@
   };
 
   draw();
+});
 </script>
 </body>
 </html>

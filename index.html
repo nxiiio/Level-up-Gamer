@@ -1,128 +1,147 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameZone - Tu Tienda Gamer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level-Up - Tu Tienda Gamer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <a href="#" class="logo">GameZone</a>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#productos">Productos</a></li>
-                <li><a href="#ofertas">Ofertas</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-            <button class="cart-btn">
-                🛒 Carrito (<span id="cart-count">0</span>)
-            </button>
-        </nav>
-    </header>
+<header>
+  <nav>
+    <a href="#" class="logo">Level-Up</a>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div id="auth-buttons"></div>
+  </nav>
+</header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="inicio">
-        <div class="hero-content">
-            <h1>Bienvenido a GameZone</h1>
-            <p>Los mejores productos gaming al mejor precio</p>
-            <button class="cta-btn">Explorar Productos</button>
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <h1>Bienvenido a Level-Up</h1>
+    <p>Los mejores productos gaming al mejor precio</p>
+    <button class="cta-btn" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Explorar Productos</button>
+  </div>
+</section>
+
+<section class="products-section" id="productos">
+  <div class="container">
+    <h2 class="section-title">Nuestros Productos</h2>
+    <div class="filters" id="filters"></div>
+    <div class="products-grid" id="products-grid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Level-Up</h4>
+        <p>Tu tienda gamer de confianza</p>
+      </div>
+      <div class="footer-section">
+        <h4>Enlaces Rápidos</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contacto</h4>
+        <p>Email: info@Level-Up.com</p>
+        <p>Teléfono: +56 9 1234 5678</p>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos</h4>
+        <div class="social-links">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
         </div>
-    </section>
-
-    <!-- Productos Section -->
-    <section class="products-section" id="productos">
-        <div class="container">
-            <h2 class="section-title">Nuestros Productos</h2>
-            
-            <!-- Filtros -->
-            <div class="filters">
-                <button class="filter-btn active" data-category="all">Todos</button>
-                <button class="filter-btn" data-category="juegos">Juegos</button>
-                <button class="filter-btn" data-category="consolas">Consolas</button>
-                <button class="filter-btn" data-category="accesorios">Accesorios</button>
-                <button class="filter-btn" data-category="pc">PC Gaming</button>
-            </div>
-
-            <!-- Grid de Productos -->
-            <div class="products-grid" id="products-grid">
-                <!-- Los productos se cargarán dinámicamente con JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal del Carrito -->
-    <div class="modal" id="cart-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Carrito de Compras</h3>
-                <span class="close-btn" id="close-cart">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div id="cart-items">
-                    <!-- Items del carrito se cargarán aquí -->
-                </div>
-                <div class="cart-total">
-                    <strong>Total: $<span id="cart-total">0</span></strong>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" id="clear-cart">Vaciar Carrito</button>
-                <button class="btn-primary" id="checkout">Proceder al Pago</button>
-            </div>
-        </div>
+      </div>
     </div>
-
-    <!-- Modal de Producto -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content product-modal-content">
-            <span class="close-btn" id="close-product">&times;</span>
-            <div class="product-modal-body" id="product-modal-body">
-                <!-- Contenido del producto se cargará aquí -->
-            </div>
-        </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Level-Up. Todos los derechos reservados.</p>
     </div>
+  </div>
+</footer>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>GameZone</h4>
-                    <p>Tu tienda gamer de confianza</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Enlaces Rápidos</h4>
-                    <ul>
-                        <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#productos">Productos</a></li>
-                        <li><a href="#ofertas">Ofertas</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contacto</h4>
-                    <p>Email: info@gamezone.com</p>
-                    <p>Teléfono: +56 9 1234 5678</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Síguenos</h4>
-                    <div class="social-links">
-                        <a href="#">Facebook</a>
-                        <a href="#">Instagram</a>
-                        <a href="#">Twitter</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 GameZone. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
+<script src="auth.js"></script>
+<script src="products.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+  // Header dinámico
+  const authDiv = document.getElementById('auth-buttons');
+  const user = window.GZAuth.currentUser();
+  if(user){
+    authDiv.innerHTML = `
+      <button class="cart-btn" onclick="location.href='carrito.html'">🛒 Carrito</button>
+      <button class="btn-secondary" id="logout">Salir</button>`;
+    document.getElementById('logout').onclick = ()=>{ GZAuth.logout(); location.reload(); };
+  }else{
+    authDiv.innerHTML = `
+      <button class="cart-btn" onclick="location.href='login.html'">Iniciar sesión</button>
+      <button class="btn-secondary" onclick="location.href='register.html'">Registrarse</button>`;
+  }
 
-    <script src="script.js"></script>
+  // Filtros y productos
+  const filtersDiv = document.getElementById('filters');
+  const grid = document.getElementById('products-grid');
+  let active = 'all';
+
+  function drawFilters(){
+    filtersDiv.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn' + (active==='all'?' active':'');
+    allBtn.textContent = 'Todos';
+    allBtn.onclick = ()=>{active='all'; drawFilters(); drawGrid();};
+    filtersDiv.appendChild(allBtn);
+    GZProducts.categories().forEach(c=>{
+      const b = document.createElement('button');
+      b.className = 'filter-btn' + (active===c.id?' active':'');
+      b.textContent = c.name;
+      b.onclick = ()=>{active=c.id; drawFilters(); drawGrid();};
+      filtersDiv.appendChild(b);
+    });
+  }
+
+  function priceWithDiscount(p){
+    return user && user.email.endsWith('@duocuc.cl') ? Math.round(p*0.8) : p;
+  }
+
+  function drawGrid(){
+    const data = GZProducts.list().filter(p=> active==='all' || p.cat===active);
+    grid.innerHTML = '';
+    data.forEach(p=>{
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+<div class="product-image"><img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
+        <div class="product-info">
+          <div class="product-title"><a href="producto.html?code=${p.code}" style="color:#fff;text-decoration:none">${p.name}</a></div>
+          <div class="product-description">${p.desc}</div>
+          <div class="product-price">${new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP'}).format(priceWithDiscount(p.price))}</div>
+          <button class="add-to-cart">Agregar al carrito</button>
+        </div>`;
+      card.querySelector('.add-to-cart').onclick = ()=>{
+        const cart = JSON.parse(localStorage.getItem('gz_cart')||'[]');
+        const existing = cart.find(i=>i.code===p.code);
+        if(existing){ existing.qty += 1; } else { cart.push({code:p.code, name:p.name, price:priceWithDiscount(p.price), qty:1}); }
+        localStorage.setItem('gz_cart', JSON.stringify(cart));
+        alert('Añadido al carrito');
+      };
+      grid.appendChild(card);
+    });
+  }
+
+  drawFilters();
+  drawGrid();
+});
+</script>
 </body>
 </html>

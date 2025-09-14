@@ -38,12 +38,12 @@
 
   function login(email, password){
     const users = readUsers();
-    // Password no persistida por simplicidad. En tareas reales, almacenar y validar hash.
+    // Password no persistida por simplicidad. Solo se valida presencia.
     const user = users.find(u=>u.email===email);
     if(!user){
       return {success:false, message:'Usuario no encontrado.'};
     }
-    if(!password){ // validación dummy
+    if(!password){ 
       return {success:false, message:'Contraseña requerida.'};
     }
     localStorage.setItem(SESSION_KEY, user.id);
