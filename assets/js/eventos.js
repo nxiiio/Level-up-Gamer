@@ -33,14 +33,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('article');
     card.className = 'event-card';
     card.innerHTML = `
-      <h3 class="event-title">${ev.title}</h3>
-      <ul class="event-meta">
-        <li>📍 ${ev.address}</li>
-        <li>🕒 ${ev.time}</li>
-      </ul>
-      <p class="event-desc">${ev.desc}</p>
-      <button class="btn-primary" disabled>Próximamente</button>
+      <button class="event-toggle" aria-expanded="false">
+        <span>
+          <h3 class="event-title">${ev.title}</h3>
+          <ul class="event-meta">
+            <li>📍 ${ev.address}</li>
+            <li>🕒 ${ev.time}</li>
+          </ul>
+        </span>
+        <span class="chevron" aria-hidden="true">▾</span>
+      </button>
+      <div class="event-details" hidden>
+        <p class="event-desc">${ev.desc}</p>
+        <div class="event-actions">
+          <button class="btn-primary" disabled>Próximamente</button>
+          <a class="btn-secondary" href="#" aria-disabled="true">Compartir</a>
+        </div>
+      </div>
     `;
+
+    const toggle = card.querySelector('.event-toggle');
+    const details = card.querySelector('.event-details');
+    const chevron = card.querySelector('.chevron');
+
+    const open = (val) => {
+      const isOpen = val ?? (toggle.getAttribute('aria-expanded') === 'true');
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) {
+        // close
+        details.setAttribute('hidden', '');
+        details.style.maxHeight = '';
+        chevron.classList.remove('rot');
+      } else {
+        // open
+        details.removeAttribute('hidden');
+        // for smooth transition with max-height
+        requestAnimationFrame(() => {
+          details.style.maxHeight = details.scrollHeight + 'px';
+        });
+        chevron.classList.add('rot');
+      }
+    };
+
+    toggle.addEventListener('click', () => open());
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open();
+      }
+    });
+
     list.appendChild(card);
   });
 });
