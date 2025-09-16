@@ -101,6 +101,46 @@ nav {
     width: 100%;
 }
 
+#auth-buttons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+#auth-buttons a,
+#auth-buttons button {
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+#auth-buttons .login-btn {
+    color: var(--text-primary);
+    border: 2px solid var(--accent-blue);
+    background: transparent;
+}
+
+#auth-buttons .login-btn:hover {
+    background: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 144, 255, 0.3);
+}
+
+#auth-buttons .register-btn {
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    border: none;
+}
+
+#auth-buttons .register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 144, 255, 0.3);
+}
+
 .cart-btn {
     background: var(--gradient-primary);
     color: var(--text-primary);
@@ -193,15 +233,16 @@ nav {
 
 /* Products Section */
 .products-section {
-    padding: 4rem 0;
+    padding: 6rem 0;
     background: var(--primary-bg);
+    margin: 2rem 0;
 }
 
 .section-title {
     font-family: 'Orbitron', monospace;
     font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -245,8 +286,9 @@ nav {
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    padding: 1rem;
 }
 
 .product-card {
@@ -486,7 +528,6 @@ nav {
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s ease;
 }
 
 /* transform handled by shared rule for btn-primary; keep secondary override below */
@@ -677,8 +718,9 @@ footer {
 .events-layout {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
-    gap: 2rem;
+    gap: 3rem;
     align-items: stretch;
+    margin: 2rem 0;
 }
 
 .map-container {
@@ -688,6 +730,7 @@ footer {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     height: 520px;
+    padding: 1rem;
 }
 
 .map-embed,
@@ -701,11 +744,12 @@ footer {
 .events-panel {
     background: var(--secondary-bg);
     border-radius: 15px;
-    padding: 1.5rem;
+    padding: 2rem;
     border: 1px solid var(--secondary-bg);
     height: 520px; /* igual al mapa */
     display: flex;
     flex-direction: column;
+    margin-bottom: 2rem;
 }
 
 .events-list {
@@ -880,7 +924,7 @@ footer {
     font-family: 'Orbitron', monospace;
     font-size: 2rem;
     color: var(--text-primary);
-    margin: 0;
+    margin: 30px;
 }
 
 .edit-btn {
@@ -1720,8 +1764,9 @@ footer {
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 3rem;
+  margin: 2rem 0 4rem 0;
+  padding: 1rem;
 }
 
 .blog-card {
@@ -1768,7 +1813,7 @@ footer {
     content: '';
     position: absolute;
     left: 50%;
-    bottom: -12px;
+    bottom: -10px;
     transform: translateX(-50%);
     width: 120px;
     height: 3px;
@@ -1836,6 +1881,45 @@ footer {
 /* Home events list should not scroll */
 #eventos .events-list { overflow: visible; max-height: none; }
 #eventos .event-card { padding: 1.25rem; }
+
+/* WhatsApp Float Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25D366;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    animation: bounce 2s infinite;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+    background-color: #22c15e;
+}
+
+.whatsapp-float svg {
+    width: 32px;
+    height: 32px;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
 
 /* Buttons polish */
 .btn-secondary {
